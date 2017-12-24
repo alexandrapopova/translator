@@ -40,17 +40,29 @@ namespace yandex
         {
             Translate.Func = TrText;
         }
+        //REVIEW: А зачем он async?
         private async void TrText(object parameter)
         {
             Translator tr = new Translator();
             Translation = tr.Translate(Origin);
+<<<<<<< HEAD:yandex/viewmodel.cs
             using (SqlConnection dbase = new SqlConnection(Properties.Settings.Default.sqlexpress))
+=======
+            SqlConnectionStringBuilder c = new SqlConnectionStringBuilder();
+            //REVIEW: А если у меня SQL Server по-другому называется? И БД? И вход по логину?
+            c.DataSource = ".\\SQLEXPRESS";
+            c.InitialCatalog = "Translator";
+            c.IntegratedSecurity = true;
+
+            using (SqlConnection dbase = new SqlConnection(c.ConnectionString))
+>>>>>>> master:yandex/yandex/viewmodel.cs
             {
                 SqlCommand comm = new SqlCommand("insert into Recent(origin, translation) values (@in, @out)", dbase);
                 comm.Parameters.AddWithValue("@in", Origin);
                 comm.Parameters.AddWithValue("@out", Translation);
                 try
                 {
+                    //REVIEW: Смысл тут await городить, если всё равно синхронно используете?
                     await dbase.OpenAsync();
                     await comm.ExecuteNonQueryAsync();
                     dbase.Close();

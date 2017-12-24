@@ -26,7 +26,14 @@ namespace yandex
             {
                 try
                 {
+<<<<<<< HEAD:yandex/Translator.cs
                     WebRequest request = WebRequest.Create(url);
+=======
+                    //REVIEW:Базовый url - в константы, собирать из частей, а не вот это вот всё
+                    WebRequest request = WebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171217T153500Z.e982aab086711b47.9ad3b1d68ea1498dc93518918e939728b1afd999&text=" + WebUtility.UrlEncode(s)
+                        + "&lang=ru-en");
+
+>>>>>>> master:yandex/yandex/Translator.cs
                     WebResponse response = request.GetResponse();
                     using (StreamReader stream = new StreamReader(response.GetResponseStream()))
                     {
