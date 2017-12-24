@@ -19,7 +19,8 @@ namespace yandex
             string line = string.Empty;
             Translation a = null;
             const string api = "trnsl.1.1.20171217T153500Z.e982aab086711b47.9ad3b1d68ea1498dc93518918e939728b1afd999";
-            string url = $"https://translate.yandex.net/api/v1.5/tr.json/translate?key={api}&text={WebUtility.UrlEncode(s)}&lang=ru-en";
+            const string link = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+            string url = $"{link}?key={api}&text={WebUtility.UrlEncode(s)}&lang=ru-en";
 
             if (!string.IsNullOrEmpty(s))
             {
