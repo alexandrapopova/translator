@@ -44,11 +44,7 @@ namespace yandex
         {
             Translator tr = new Translator();
             Translation = tr.Translate(Origin);
-            SqlConnectionStringBuilder c = new SqlConnectionStringBuilder();
-            c.DataSource = ".\\SQLEXPRESS";
-            c.InitialCatalog = "Translator";
-            c.IntegratedSecurity = true;
-            using (SqlConnection dbase = new SqlConnection(c.ConnectionString))
+            using (SqlConnection dbase = new SqlConnection(Properties.Settings.Default.sqlexpress))
             {
                 SqlCommand comm = new SqlCommand("insert into Recent(origin, translation) values (@in, @out)", dbase);
                 comm.Parameters.AddWithValue("@in", Origin);

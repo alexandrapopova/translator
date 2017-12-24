@@ -18,13 +18,14 @@ namespace yandex
         {
             string line = string.Empty;
             Translation a = null;
+            const string api = "trnsl.1.1.20171217T153500Z.e982aab086711b47.9ad3b1d68ea1498dc93518918e939728b1afd999";
+            string url = $"https://translate.yandex.net/api/v1.5/tr.json/translate?key={api}&text={WebUtility.UrlEncode(s)}&lang=ru-en";
+
             if (!string.IsNullOrEmpty(s))
             {
                 try
                 {
-                    WebRequest request = WebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171217T153500Z.e982aab086711b47.9ad3b1d68ea1498dc93518918e939728b1afd999&text=" + WebUtility.UrlEncode(s)
-                        + "&lang=ru-en");
-
+                    WebRequest request = WebRequest.Create(url);
                     WebResponse response = request.GetResponse();
                     using (StreamReader stream = new StreamReader(response.GetResponseStream()))
                     {
@@ -48,7 +49,7 @@ namespace yandex
             }
             return a.text[0];
         }
-    }
+}
 
     class Translation
     {
